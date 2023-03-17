@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Auth.dart';
 import 'Qrcode.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: qrCodeScreen(),
+      home: AuthScreen(),
     );
   }
 }

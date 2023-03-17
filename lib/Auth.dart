@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -7,7 +9,13 @@ class AuthScreen extends StatefulWidget {
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
+
+
+
 class _AuthScreenState extends State<AuthScreen> {
+
+  String _email = '';
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,7 +43,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   height: 12.0,
                 ),
                 TextFormField(
-                    decoration: InputDecoration(
+                  onChanged: (value) => setState(() => _email = value),
+                  decoration: InputDecoration(
                   hintText: "Ex: john.doe@gmail.com",
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -52,7 +61,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     primary: Colors.indigo,
                     onPrimary: Colors.white,
                   ),
-                  onPressed: () => print('send'),
+                  onPressed: () => print(_email),
                   child: const Text('Se connecter'),
                 )
               ],
