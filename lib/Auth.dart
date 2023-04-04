@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-Future<http.Response> postRequest (email) async {
+Future<String> postRequest (email) async {
   var url ='http://127.0.0.1:8000/api/login';
   Map data = {
     "email" : email
@@ -17,10 +17,13 @@ Future<http.Response> postRequest (email) async {
       body: body
   );
   
-  print("${response.statusCode}");
-  print("${response.body}");
 
-  return response;
+
+  String res = "${response.body}";
+  if(res == '"Email envoyer"'){
+    return "test";
+  } 
+  return response.body;
 }
 
 class AuthScreen extends StatefulWidget {
@@ -89,12 +92,12 @@ class _AuthScreenState extends State<AuthScreen> {
                     primary: Colors.indigo,
                     onPrimary: Colors.white,
                   ),
-                  onPressed: () {
-                    if(_formKey.currentState!.validate()) {
-                      
-                        print(_email);
+                  onPressed: () async {
+                    if(_formKey.currentState!.validate()) {      
+                      String res = await postRequest(_email);          
+                      if ("${res}" == "test"){
                         Navigator.pushNamed(context, '/second');
-                    
+                      }
                     }
                   },
                   child: const Text('Se connecter'),
