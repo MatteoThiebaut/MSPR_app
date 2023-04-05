@@ -1,6 +1,6 @@
 # PayeTonKawa Application
 
-A new Flutter project.
+Projet Flutter
 
 ## Page de Connexion 
 
