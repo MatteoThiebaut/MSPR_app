@@ -1,16 +1,10 @@
-# flutter_application_1
+# PayeTonKawa Application
 
 A new Flutter project.
 
-## Getting Started
+## Page de Connexion 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Au lancement de l'applications on arrive sur la page de connexion. Le formulaire de connexions gère les erreurs en refusant tout format différents de celui accepter pour
+une adresse email. Pour montrée cette erreur le cadre du formulaire deviens rouge en précisant que la format écris n'est pas adapté. 
+Ensuite si l'adresse email n'est pas présente dans l'api, un texte apparaît en rouge sous le bouton afin de montrer à l'utilisateur que cette adresse email 
+n'existe pas.
