@@ -11,5 +11,7 @@ dans le formulaire. Le back-end nous retourne un texte que l'on peux verifier av
 Si l'adresse email n'est pas présente dans l'api, un texte apparaît en rouge sous le bouton afin de montrer à l'utilisateur que cette adresse email 
 n'existe pas. Ensuite si l'adresse éxiste ,l'utilisateur reçois un mail contenant le qrcode (gérée par le back-end a récepetion de la methode POST) donc on le redirige vers la page de scan de qrcode afin de scanner celui-ci.
 
-## Page de Qrcode
+## Page de Scan de Qrcode
+
+La page de Scan de Qrcode affiche un bouton pour ouvrir l'appareil photo du téléphone.
 
