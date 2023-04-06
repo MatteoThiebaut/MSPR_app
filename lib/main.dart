@@ -13,7 +13,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   // This widget is the root of your application.
   @override
@@ -21,9 +21,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         initialRoute: '/product',
         routes: {
-          '/': (context) => const AuthScreen(),
+          '/connexion': (context) => const AuthScreen(),
           '/second': (context) => const qrCodeScreen(),
           '/product': (context) => const MachineScreen(),
+
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -35,23 +36,30 @@ class MyApp extends StatelessWidget {
             bodyMedium: TextStyle(color: primaryColor),
           ),
         ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(
-                'Paye ton Kawa',
-                style: TextStyle(color: primaryColor, fontFamily: 'Satisfy'),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
-              ),
-              Image.asset(
-                'assets/lologo.png',
-                fit: BoxFit.contain,
-                height: 32,
-              ),
-            ]),
-          ),
-        ));
+    ); 
   }
+}
+AppBar getAppBar() {
+  return AppBar(
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Paye ton Kawa',
+          style: TextStyle(
+            color: primaryColor,
+            fontFamily: 'Satisfy',
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
+        ),
+        Image.asset(
+          'assets/lologo.png',
+          fit: BoxFit.contain,
+          height: 32,
+        ),
+      ],
+    ),
+  );
 }
