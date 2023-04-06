@@ -25,3 +25,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Satisfy
+      fonts:
+        - asset: fonts/Satisfy-Regular.ttf
+          weight: 400
+  assets:
+   - assets/logo.png
+   - assets/lologo.png
