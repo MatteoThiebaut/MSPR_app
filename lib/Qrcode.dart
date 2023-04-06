@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
-
+import 'main.dart';
 // ignore: camel_case_types
 class qrCodeScreen extends StatefulWidget {
   const qrCodeScreen({super.key});
@@ -18,6 +18,7 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+         appBar: getAppBar(),
       body: Center(
           child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -36,7 +37,7 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
                       onPrimary: Colors.white,
                     ),
                     onPressed: () {
-                      scanQRCode();
+                      Navigator.pushNamed(context, '/product');
                     },
                     child: const Text('Scan'),
                   ),
@@ -60,8 +61,12 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
         getResult = qrCode;
       });
 
+
+      
+     
+
       print("QRCode_Result:--");
-      print(qrCode);
+      print(getResult);
     } on PlatformException {
       getResult = "Erreur lors du scan du QRCode.";
     }

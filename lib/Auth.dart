@@ -11,15 +11,19 @@ Future<String> postRequest(email) async {
   var body = json.encode(data);
 
   var response = await http.post(Uri.parse(url),
-      headers: {"Content-Type": "application/json"}, body: body);
-  return response.body;
+      headers: {"Content-Type": "application/json"},
+      body: body
+  );
+     return response.body;
 }
+
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
+
 }
 
 class _AuthScreenState extends State<AuthScreen> {
@@ -33,6 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          appBar: getAppBar(),
             body: Center(
                 child: SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 40.0),
