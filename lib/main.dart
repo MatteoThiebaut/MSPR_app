@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'Auth.dart';
 import 'Qrcode.dart';
+import 'product.dart';
+
+final Color primaryColor = Color(0xFF3F2E00);
+final Color secondaryColor = Color(0x9C93763F);
+final Color tertiaryColor = Color(0xFFC8B576);
+final Color background = Color(0xFFD0D0D0);
 
 void main() {
   runApp(const MyApp());
@@ -8,19 +14,44 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      initialRoute: '/',
-      routes: {
-    // When navigating to the "/" route, build the FirstScreen widget.
-    '/': (context) => const AuthScreen(),
-    // When navigating to the "/second" route, build the SecondScreen widget.
-    '/second': (context) => const qrCodeScreen(),
-      },  
-    );
+        initialRoute: '/product',
+        routes: {
+          '/': (context) => const AuthScreen(),
+          '/second': (context) => const qrCodeScreen(),
+          '/product': (context) => const MachineScreen(),
+        },
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: secondaryColor,
+          ),
+          scaffoldBackgroundColor: background,
+          textTheme: TextTheme(
+            bodyMedium: TextStyle(color: primaryColor),
+          ),
+        ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(
+                'Paye ton Kawa',
+                style: TextStyle(color: primaryColor, fontFamily: 'Satisfy'),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(12, 0, 0, 0),
+              ),
+              Image.asset(
+                'assets/lologo.png',
+                fit: BoxFit.contain,
+                height: 32,
+              ),
+            ]),
+          ),
+        ));
   }
 }
