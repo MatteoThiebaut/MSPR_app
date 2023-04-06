@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Auth.dart';
 import 'Qrcode.dart';
+import 'product.dart';
 
 final Color primaryColor = Color(0xFF3F2E00);
 final Color secondaryColor = Color(0x9C93763F);
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const AuthScreen(),
           '/second': (context) => const qrCodeScreen(),
+          '/product': (context) => const MachineScreen(),
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
