@@ -76,16 +76,11 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
       // Extraire l'e-mail du résultat JSON
       String? email = qrCodeData['email'];
        if (email == scannedEmail) {
-     setState(() {
-        this.email = email ?? '';
-      });
-  } else {
-      setState(() {
-        this.email = email ?? '';
-      });
-  }
-    
-    
+     // verif email recu
+     print("good");
+     } else {
+      
+    }
 
       print("Email: $email");
     } on PlatformException {

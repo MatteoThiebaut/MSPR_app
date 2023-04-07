@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        initialRoute: '/qrcode',
+        initialRoute: '/connexion',
         routes: {
           '/connexion': (context) => const AuthScreen(),
           '/qrcode': (context) =>  qrCodeScreen(email: '',),

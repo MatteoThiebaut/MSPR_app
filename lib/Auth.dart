@@ -124,12 +124,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                     setState(() {
                                       _res = res;
                                     });
-                                    if (_res == '"Email envoyé"') {
+                                    if (_res == '"Email envoyer"') {
+                                      BuildContext contextLocal = context;
                                       print(_res);
                                       Navigator.push(
                                         contextLocal, // Utiliser la variable locale de contexte
                                         MaterialPageRoute(
-                                          builder: (context) => qrCodeScreen(email: _email), // Utiliser la variable _email pour passer l'email récupéré
+                                          builder: (context) => qrCodeScreen( email: _email), // Utiliser la variable _email pour passer l'email récupéré
                                         ),
                                       );
                                     } else if (_res ==
