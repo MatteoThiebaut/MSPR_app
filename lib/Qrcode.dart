@@ -15,6 +15,8 @@ class qrCodeScreen extends StatefulWidget {
 // ignore: camel_case_types
 class _qrCodeScreenState extends State<qrCodeScreen> {
   var getResult = "Qr Code result";
+  var email = "";
+
 
   @override
   Widget build(BuildContext context) {
@@ -39,44 +41,47 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
                       onPrimary: Colors.white,
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/product');
+                      scanQRCode();
                     },
                     child: const Text('Scan'),
                   ),
                   const SizedBox(
                     height: 50.0,
                   ),
-                  Text(getResult),
+                  Text(email),
                 ],
               ))),
     ));
   }
 
-  void scanQRCode() async {
-  try {
-    final qrCode = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666', 'Annuler', false, ScanMode.BARCODE);
+   void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Annuler', false, ScanMode.BARCODE);
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    setState(() {
-      getResult = qrCode;
-    });
+      setState(() {
+        getResult = qrCode;
+      });
 
-    print("QRCode_Result:--");
-    print(getResult);
+      print("QRCode_Result:--");
+      print(getResult);
 
-    // Convertir le résultat en JSON
-    Map<String, dynamic> qrCodeData = jsonDecode(getResult);
-    
-    // Extraire l'e-mail du résultat JSON
-    String email = qrCodeData['email'];
-    
-    // Utiliser l'e-mail récupéré pour effectuer les actions nécessaires
-    print("Email: $email");
+      // Convertir le résultat en JSON
+      Map<String, dynamic> qrCodeData = jsonDecode(getResult);
 
-  } on PlatformException {
-    getResult = "Erreur lors du scan du QRCode.";
-  }
+      // Extraire l'e-mail du résultat JSON
+      String? email = qrCodeData['email'];
+
+      // Utiliser l'e-mail récupéré pour effectuer les actions nécessaires
+      setState(() {
+        this.email = email ?? '';
+      });
+
+      print("Email: $email");
+    } on PlatformException {
+      getResult = "Erreur lors du scan du QRCode.";
+    }
   }
 }
