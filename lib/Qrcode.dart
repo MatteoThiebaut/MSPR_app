@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+
 // ignore: camel_case_types
 class qrCodeScreen extends StatefulWidget {
   const qrCodeScreen({super.key});
@@ -18,36 +19,77 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-         appBar: getAppBar(),
-      body: Center(
-          child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: Column(
-                children: [
-                  const Text(
-                    'Scanner le QRCode',
-                    style: TextStyle(color: Colors.indigo, fontSize: 34),
-                  ),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.indigo,
-                      onPrimary: Colors.white,
+            appBar: getAppBar(),
+            body: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 16.0,
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/product');
-                    },
-                    child: const Text('Scan'),
-                  ),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
-                  Text(getResult),
-                ],
-              ))),
-    ));
+                    Image.asset(
+                      'assets/logo.png',
+                      width: 150,
+                      height: 150,
+                    ),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: secondaryColor,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Column(children: [
+                          const SizedBox(
+                            height: 25.0,
+                          ),
+                          const Text(
+                            'Connexion',
+                            style: TextStyle(color: Colors.white, fontSize: 34),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          const Text(
+                            'Le formulaire a bien été envoyé !',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 24.0),
+                            child: Text(
+                              'Vous avez reçu un Qrcode par email pour valider votre connexion, scannez-le !',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16.0,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              onPrimary: primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/product');
+                            },
+                            child: const Text('Scan'),
+                          ),
+                          const SizedBox(
+                            height: 25.0,
+                          ),
+                        ]))
+                  ],
+                ),
+              ),
+            )));
   }
 
   void scanQRCode() async {
@@ -60,10 +102,6 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
       setState(() {
         getResult = qrCode;
       });
-
-
-      
-     
 
       print("QRCode_Result:--");
       print(getResult);
