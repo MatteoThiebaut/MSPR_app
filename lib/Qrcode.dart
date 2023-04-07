@@ -2,6 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'dart:convert';
+
 // ignore: camel_case_types
 class qrCodeScreen extends StatefulWidget {
   const qrCodeScreen({super.key});
@@ -51,24 +53,30 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
   }
 
   void scanQRCode() async {
-    try {
-      final qrCode = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Annuler', false, ScanMode.BARCODE);
+  try {
+    final qrCode = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Annuler', false, ScanMode.BARCODE);
 
-      if (!mounted) return;
+    if (!mounted) return;
 
-      setState(() {
-        getResult = qrCode;
-      });
+    setState(() {
+      getResult = qrCode;
+    });
 
+    print("QRCode_Result:--");
+    print(getResult);
 
-      
-     
+    // Convertir le résultat en JSON
+    Map<String, dynamic> qrCodeData = jsonDecode(getResult);
+    
+    // Extraire l'e-mail du résultat JSON
+    String email = qrCodeData['email'];
+    
+    // Utiliser l'e-mail récupéré pour effectuer les actions nécessaires
+    print("Email: $email");
 
-      print("QRCode_Result:--");
-      print(getResult);
-    } on PlatformException {
-      getResult = "Erreur lors du scan du QRCode.";
-    }
+  } on PlatformException {
+    getResult = "Erreur lors du scan du QRCode.";
+  }
   }
 }

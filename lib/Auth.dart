@@ -124,7 +124,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             });
                             if (_res == '"Email envoyer"') {
                               print(_res);
-                              Navigator.pushNamed(context, '/second');
+                              Navigator.pushNamed(context, '/qrcode');
                             } else if (_res ==
                                 '"Cette adresse email ne correspond a aucun compte"') {
                               print(_res);
