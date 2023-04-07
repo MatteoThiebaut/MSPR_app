@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'dart:convert';
 
-// ignore: camel_case_types
+// ignore: camel_case_types²
 class qrCodeScreen extends StatefulWidget {
-  const qrCodeScreen({super.key});
+  final String? email; // Ajouter cette ligne
+
+  const qrCodeScreen({Key? key, this.email}) : super(key: key); // Mettre à jour le constructeur
 
   @override
   State<qrCodeScreen> createState() => _qrCodeScreenState();
@@ -16,7 +18,7 @@ class qrCodeScreen extends StatefulWidget {
 class _qrCodeScreenState extends State<qrCodeScreen> {
   var getResult = "Qr Code result";
   var email = "";
-
+  var scannedEmail = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
                       onPrimary: Colors.white,
                     ),
                     onPressed: () {
-                      scanQRCode();
+                     scanQRCode(widget.email!);
                     },
                     child: const Text('Scan'),
                   ),
@@ -54,7 +56,7 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
     ));
   }
 
-   void scanQRCode() async {
+   void scanQRCode(String email) async {
     try {
       final qrCode = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Annuler', false, ScanMode.BARCODE);
@@ -70,14 +72,20 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
 
       // Convertir le résultat en JSON
       Map<String, dynamic> qrCodeData = jsonDecode(getResult);
-
+      String? scannedEmail = qrCodeData['email'];
       // Extraire l'e-mail du résultat JSON
       String? email = qrCodeData['email'];
-
-      // Utiliser l'e-mail récupéré pour effectuer les actions nécessaires
+       if (email == scannedEmail) {
+     setState(() {
+        this.email = email ?? '';
+      });
+  } else {
       setState(() {
         this.email = email ?? '';
       });
+  }
+    
+    
 
       print("Email: $email");
     } on PlatformException {

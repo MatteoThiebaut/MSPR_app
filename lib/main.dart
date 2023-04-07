@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/qrcode',
         routes: {
           '/connexion': (context) => const AuthScreen(),
-          '/qrcode': (context) => const qrCodeScreen(),
+          '/qrcode': (context) =>  qrCodeScreen(email: '',),
           '/product': (context) => const MachineScreen(),
 
         },
