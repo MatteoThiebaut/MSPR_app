@@ -34,23 +34,20 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-            appBar: getAppBar(),
-            body: Center(
-                child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: Column(children: [
-                const SizedBox(
-                  height: 16.0,
-                ),
+      child: Scaffold(
+        appBar: getAppBar(),
+        body: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 16.0),
                 Image.asset(
                   'assets/logo.png',
                   width: 150,
                   height: 150,
                 ),
-                const SizedBox(
-                  height: 40.0,
-                ),
+                const SizedBox(height: 40.0),
                 DecoratedBox(
                   decoration: BoxDecoration(
                     color: secondaryColor,
@@ -58,113 +55,114 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 16.0,
-                      ),
+                      const SizedBox(height: 16.0),
                       const Text(
                         'Connexion',
                         style: TextStyle(color: Colors.white, fontSize: 34),
                       ),
-                      const SizedBox(
-                        height: 40.0,
-                      ),
+                      const SizedBox(height: 40.0),
                       Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Saisissez votre adresse mail',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              ),
-                              const SizedBox(
-                                height: 12.0,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 32.0),
-                                child: TextFormField(
-                                  onChanged: (value) =>
-                                      setState(() => _email = value),
-                                  validator: (value) => value!.isEmpty ||
-                                          !emailRegex.hasMatch(value)
-                                      ? 'Veuillez rentrer une adresse mail valide'
-                                      : null,
-                                  decoration: InputDecoration(
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    hintText: "Ex: john.doe@gmail.com",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(32),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(32),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 16.0,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  onPrimary: primaryColor,
-                                  shape: RoundedRectangleBorder(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Saisissez votre adresse mail',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 14),
+                            ),
+                            const SizedBox(height: 12.0),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 32.0),
+                              child: TextFormField(
+                                onChanged: (value) =>
+                                    setState(() => _email = value),
+                                validator: (value) => value!.isEmpty ||
+                                        !emailRegex.hasMatch(value)
+                                    ? 'Veuillez rentrer une adresse mail valide'
+                                    : null,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  hintText: "Ex: john.doe@gmail.com",
+                                  border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(32),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                    borderSide: BorderSide.none,
                                   ),
                                 ),
-                                onPressed: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    setState(() {
-                                      _isLoading =
-                                          true; // Activer le cercle de chargement
-                                    });
-                                    String res = await postRequest(_email,
-                                        context); // Passer la variable locale de contexte en tant que paramètre
-                                    setState(() {
-                                      _res = res;
-                                      _isLoading = false;
-                                    });
-                                    if (_res == '"Email envoyer"') {
-                                      print(_res);
-                                      Navigator.pushNamed(context, '/qrcode');
-                                    } else if (_res ==
-                                        '"Cette adresse email ne correspond à aucun compte"') {
-                                      print(_res);
-                                      setState(() {
-                                        _res =
-                                            "Cette adresse email ne correspond à aucun compte";
-                                      });
-                                    }
-                                  }
-                                },
-                                child: _isLoading
-                                    ? // Si _isLoading est vrai, afficher le cercle de chargement, sinon afficher "Se connecter"
-                                    const CircularProgressIndicator(
+                              ),
+                            ),
+                            const SizedBox(height: 16.0),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.white,
+                                onPrimary: primaryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (BuildContext context) {
+                                      return const Center(
+                                          child: CircularProgressIndicator(
                                         color: Colors.blue,
-                                      )
-                                    : const Text('Se connecter'),
+                                      ));
+                                    },
+                                  );
+                                  String res =
+                                      await postRequest(_email, context);
+                                  Navigator.pop(context);
+                                  setState(() {
+                                    _res = res;
+                                    _isLoading = false;
+                                  });
+                                  if (_res == '"Email envoyer"') {
+                                    print(_res);
+                                    Navigator.pushNamed(context, '/qrcode');
+                                  } else if (_res ==
+                                      '"Cette adresse email ne correspond à aucun compte"') {
+                                    print(_res);
+                                    setState(() {
+                                      _res =
+                                          "Cette adresse email ne correspond à aucun compte";
+                                    });
+                                  }
+                                }
+                              },
+                              child: const Text('Se connecter'),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(
+                                _res,
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: Text(
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                    ),
-                                    _res),
-                              ),
-                              const SizedBox(
-                                height: 20.0,
-                              ),
-                            ],
-                          ))
+                            ),
+                            const SizedBox(height: 20.0),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 )
-              ]),
-            ))));
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
