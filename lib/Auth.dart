@@ -6,18 +6,18 @@ import 'main.dart';
 import 'qrcode.dart';
 
 Future<String> postRequest(String email, BuildContext context) async {
-  var url = 'http://127.0.0.1:8000/api/login';
+  var url = 'http://192.168.1.21:8000/api/login';
   Map data = {"email": email};
   //encode Map to JSON
   var body = json.encode(data);
 
   var response = await http.post(Uri.parse(url),
-      headers: {"Content-Type": "application/json"},
-      body: body);
+      headers: {"Content-Type": "application/json"}, body: body);
   return response.body;
 }
+
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({super.key});
+  const AuthScreen({Key? key}) : super(key: key);
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -29,6 +29,7 @@ class _AuthScreenState extends State<AuthScreen> {
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
   String _email = '';
   String _res = '';
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -117,22 +118,19 @@ class _AuthScreenState extends State<AuthScreen> {
                                 ),
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    BuildContext contextLocal =
-                                        context; // Déclarer une variable locale de type BuildContext
+                                    setState(() {
+                                      _isLoading =
+                                          true; // Activer le cercle de chargement
+                                    });
                                     String res = await postRequest(_email,
-                                        contextLocal); // Passer la variable locale de contexte en tant que paramètre
+                                        context); // Passer la variable locale de contexte en tant que paramètre
                                     setState(() {
                                       _res = res;
+                                      _isLoading = false;
                                     });
                                     if (_res == '"Email envoyer"') {
-                                      BuildContext contextLocal = context;
                                       print(_res);
-                                      Navigator.push(
-                                        contextLocal, // Utiliser la variable locale de contexte
-                                        MaterialPageRoute(
-                                          builder: (context) => qrCodeScreen( email: _email), // Utiliser la variable _email pour passer l'email récupéré
-                                        ),
-                                      );
+                                      Navigator.pushNamed(context, '/qrcode');
                                     } else if (_res ==
                                         '"Cette adresse email ne correspond à aucun compte"') {
                                       print(_res);
@@ -143,7 +141,12 @@ class _AuthScreenState extends State<AuthScreen> {
                                     }
                                   }
                                 },
-                                child: const Text('Se connecter'),
+                                child: _isLoading
+                                    ? // Si _isLoading est vrai, afficher le cercle de chargement, sinon afficher "Se connecter"
+                                    const CircularProgressIndicator(
+                                        color: Colors.blue,
+                                      )
+                                    : const Text('Se connecter'),
                               ),
                               Padding(
                                 padding: EdgeInsets.all(16.0),

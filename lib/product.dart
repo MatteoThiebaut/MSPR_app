@@ -12,7 +12,7 @@ String welcomeToJson(List<Machine> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 Future<List<Machine>> fetchMachines() async {
-  final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/products/'));
+  final response = await http.get(Uri.parse('http://192.168.1.21:8000/api/products/'));
 
   final machines = welcomeFromJson(response.body);
 
