@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
 import 'main.dart';
+
 class ProductPage extends StatelessWidget {
   final Machine machine;
 
@@ -9,6 +10,7 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: getAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -30,7 +32,7 @@ class ProductPage extends StatelessWidget {
                 color: Colors.black87,
               ),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 40.0),
             Text(
               'Description: ${machine.details.description}',
               style: const TextStyle(
@@ -38,9 +40,9 @@ class ProductPage extends StatelessWidget {
                 color: Colors.black54,
               ),
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
             Text(
-              'Color: ${machine.details.color}',
+              'Color : ${machine.details.color}',
               style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.black54,
