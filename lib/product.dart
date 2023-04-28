@@ -12,15 +12,15 @@ String welcomeToJson(List<Machine> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 Future<List<Machine>> fetchMachines() async {
-  final response = await http.get(Uri.parse('http://127.0.0.1:8000/api/products/'));
+  final response =
+      await http.get(Uri.parse('http://192.168.0.17:8000/api/products/'));
 
   final machines = welcomeFromJson(response.body);
-
-
 
   // Retourne la liste de machines
   return machines;
 }
+
 class Machine {
   Machine({
     required this.createdAt,
@@ -94,14 +94,13 @@ class _MachineScreenState extends State<MachineScreen> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return MaterialApp(
-    debugShowCheckedModeBanner: false,
-    
-    home: Scaffold(
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
       appBar: getAppBar(),
       body: Padding(
-        padding: EdgeInsets.all(15.0), // Ajoute de l'écart à l'extérieur des cartes
+        padding:
+            EdgeInsets.all(15.0), // Ajoute de l'écart à l'extérieur des cartes
         child: Center(
           child: FutureBuilder<List<Machine>>(
             future: futureMachines,
@@ -115,24 +114,28 @@ Widget build(BuildContext context) {
                       color: Colors.white, // Couleur de fond de la carte
                       elevation: 4.0, // Ombre de la carte
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0), // Bordure arrondie de la carte
+                        borderRadius: BorderRadius.circular(
+                            8.0), // Bordure arrondie de la carte
                       ),
                       child: Padding(
                         padding: EdgeInsets.all(16.0),
                         child: ListTile(
                           onTap: () {
-                        Navigator.push(
-                                  context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductPage(machine: snapshot.data![index]), // Remplacez ProductPage par le nom de la classe de votre page de présentation du produit
-                          ),
-                                );
-                                      },
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductPage(
+                                    machine: snapshot.data![
+                                        index]), // Remplacez ProductPage par le nom de la classe de votre page de présentation du produit
+                              ),
+                            );
+                          },
                           title: Padding(
                             padding: EdgeInsets.only(bottom: 8.0),
                             child: Text(
                               snapshot.data![index].name,
                               style: TextStyle(
+                                color: primaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -141,16 +144,22 @@ Widget build(BuildContext context) {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 8.0), // Ajoute un écart entre le titre et le prix
+                              SizedBox(
+                                  height:
+                                      8.0), // Ajoute un écart entre le titre et le prix
                               Text(
                                 '${snapshot.data![index].details.price} €',
-                                style: TextStyle(fontSize: 16.0, color: Colors.black87),
+                                style: TextStyle(
+                                    fontSize: 16.0, color: primaryColor),
                               ),
-                              SizedBox(height: 8.0), // Ajoute un écart entre le prix et la description
+                              SizedBox(
+                                  height:
+                                      8.0), // Ajoute un écart entre le prix et la description
                               Text(
                                 snapshot.data![index].details.description,
                                 textAlign: TextAlign.left,
-                                style: TextStyle(fontSize: 14.0, color: Colors.black54),
+                                style: TextStyle(
+                                    fontSize: 14.0, color: Colors.black54),
                               ),
                             ],
                           ),
@@ -158,8 +167,9 @@ Widget build(BuildContext context) {
                       ),
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      SizedBox(height: 16.0), // Ajoute du padding vertical entre les cartes
+                  separatorBuilder: (BuildContext context, int index) => SizedBox(
+                      height:
+                          16.0), // Ajoute du padding vertical entre les cartes
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');

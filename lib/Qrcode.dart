@@ -2,6 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'dart:convert';
+
+// ignore: camel_case_types²
 
 // ignore: camel_case_types
 class qrCodeScreen extends StatefulWidget {
@@ -14,6 +17,7 @@ class qrCodeScreen extends StatefulWidget {
 // ignore: camel_case_types
 class _qrCodeScreenState extends State<qrCodeScreen> {
   var getResult = "Qr Code result";
+  var scannedEmail = '';
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,7 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/product');
+                              scanQRCode();
                             },
                             child: const Text('Scan'),
                           ),
@@ -103,8 +107,14 @@ class _qrCodeScreenState extends State<qrCodeScreen> {
         getResult = qrCode;
       });
 
-      print("QRCode_Result:--");
-      print(getResult);
+      // Convertir le résultat en JSON
+      Map<String, dynamic> qrCodeData = jsonDecode(getResult);
+      String? scannedEmail = qrCodeData['email'];
+      // Extraire l'e-mail du résultat JSON
+
+      print("scannedEmail : " + scannedEmail!);
+      print("good");
+      Navigator.pushNamed(context, '/product');
     } on PlatformException {
       getResult = "Erreur lors du scan du QRCode.";
     }
