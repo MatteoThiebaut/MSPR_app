@@ -5,6 +5,8 @@ import 'main.dart';
 import 'dart:convert';
 
 // ignore: camel_case_types²
+
+// ignore: camel_case_types
 class qrCodeScreen extends StatefulWidget {
   const qrCodeScreen({super.key});
 
