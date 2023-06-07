@@ -6,7 +6,7 @@ import 'main.dart';
 import 'qrcode.dart';
 
 Future<String> postRequest(String email, BuildContext context) async {
-  var url = 'http://192.168.0.17:8000/api/login';
+  var url = 'http://192.168.1.21:8000/api/login';
   Map data = {"email": email};
   //encode Map to JSON
   var body = json.encode(data);

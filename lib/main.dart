@@ -19,14 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        initialRoute: '/connexion',
+        initialRoute: '/product',
         routes: {
           '/connexion': (context) => const AuthScreen(),
           '/qrcode': (context) =>  qrCodeScreen(),
           '/product': (context) => const MachineScreen(),
 
         },
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false, 
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: secondaryColor,
