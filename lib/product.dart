@@ -13,7 +13,7 @@ String welcomeToJson(List<Machine> data) =>
 
 Future<List<Machine>> fetchMachines() async {
   final response =
-      await http.get(Uri.parse('http://192.168.1.21:8000/api/products/'));
+      await http.get(Uri.parse('http://192.168.43.158:8000/api/products/'));
 
   final machines = welcomeFromJson(response.body);
 

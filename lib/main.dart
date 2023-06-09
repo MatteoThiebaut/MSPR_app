@@ -19,26 +19,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        initialRoute: '/product',
-        routes: {
-          '/connexion': (context) => const AuthScreen(),
-          '/qrcode': (context) =>  qrCodeScreen(),
-          '/product': (context) => const MachineScreen(),
-
-        },
-        debugShowCheckedModeBanner: false, 
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-            primary: secondaryColor,
-          ),
-          scaffoldBackgroundColor: background,
-          textTheme: TextTheme(
-            bodyMedium: TextStyle(color: primaryColor),
-          ),
+      initialRoute: '/product',
+      routes: {
+        '/connexion': (context) => const AuthScreen(),
+        '/qrcode': (context) => qrCodeScreen(),
+        '/product': (context) => const MachineScreen(),
+      },
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: secondaryColor,
         ),
-    ); 
+        scaffoldBackgroundColor: background,
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(color: primaryColor),
+        ),
+      ),
+    );
   }
 }
+
 AppBar getAppBar() {
   return AppBar(
     title: Row(

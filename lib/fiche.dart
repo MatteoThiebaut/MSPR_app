@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'product.dart';
 import 'main.dart';
-import 'dart:io';
+import 'productARPage.dart';
 
 class ProductPage extends StatefulWidget {
   final Machine machine;
@@ -14,8 +13,8 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  ArCoreController? arCoreController;
   bool isArEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,20 +62,12 @@ class _ProductPageState extends State<ProductPage> {
                 setState(() {
                   isArEnabled = !isArEnabled;
                 });
-                if (isArEnabled) {
-                  arCoreController?.resume();
-                } else {
-                  arCoreController?.removeNode(nodeName: 'myImageNode');
-                }
               },
               child: Text(isArEnabled ? "Désactiver AR" : "Activer AR"),
             ),
             SizedBox(height: 20),
             Expanded(
-              child: ArCoreView(
-                onArCoreViewCreated: _onArCoreViewCreated,
-                enableTapRecognizer: true,
-              ),
+              child: isArEnabled ? ProductARPage() : Container(),
             ),
           ],
         ),
@@ -84,35 +75,8 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
-  void _onArCoreViewCreated(ArCoreController controller) {
-    arCoreController = controller;
-    arCoreController?.onPlaneTap = _handleOnPlaneTap;
-  }
-
- void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {
-  // Récupérez le premier point d'intersection entre le plan et le rayon
-  final hit = hits.first;
-  
-  // Définissez la position de l'image à la position du point d'intersection
-  final pose = hit.pose.translation;
-  
-  
-  // Créez un nouveau noeud contenant l'image
-  final node = ArCoreReferenceNode(
-    name: 'myImageNode',
-    objectUrl: 'assets/CokeMachine.glb',
-    position: pose,
-    rotation: hit.pose.rotation, 
-  );
-  
-  // Ajoutez le noeud à la scène ARCore
-  arCoreController?.addArCoreNode(node);
-}
-
-
   @override
   void dispose() {
-    arCoreController?.dispose();
     super.dispose();
   }
 }

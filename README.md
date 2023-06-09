@@ -1,17 +1,23 @@
-# PayeTonKawa Application
-
+PayeTonKawa Application
 Projet Flutter
 
-## Page de Connexion 
+Auth.dart
+Au lancement de l'application, on arrive sur la page de connexion. Le formulaire de connexion gère les erreurs en refusant tout format différent de celui accepté pour une adresse e-mail. Pour montrer cette erreur, le cadre du formulaire devient rouge en précisant que le format écrit n'est pas adapté. 
 
-Au lancement de l'application on arrive sur la page de connexion. Le formulaire de connexions gère les erreurs en refusant tout format différents de celui accepter pour
-une adresse email. Pour montrée cette erreur le cadre du formulaire deviens rouge en précisant que la format écris n'est pas adapté. 
-A chaque pression du bouton, l'application appel l'api délivrer par notre back-end. On envoie une methode POST contenant l'addresse email taper 
-dans le formulaire. Le back-end nous retourne un texte que l'on peux verifier avec l'applications afin de rediriger ou non l'utilisateur.
-Si l'adresse email n'est pas présente dans l'api, un texte apparaît en rouge sous le bouton afin de montrer à l'utilisateur que cette adresse email 
-n'existe pas. Ensuite si l'adresse éxiste ,l'utilisateur reçois un mail contenant le qrcode (gérée par le back-end a récepetion de la methode POST) donc on le redirige vers la page de scan de qrcode afin de scanner celui-ci.
+À chaque pression du bouton, l'application appelle l'API fournie par notre backend. Nous envoyons une méthode POST contenant l'adresse e-mail tapée dans le formulaire. Le backend nous retourne un texte que nous pouvons vérifier avec l'application afin de rediriger ou non l'utilisateur.
 
-## Page de Scan de Qrcode
+Si l'adresse e-mail n'est pas présente dans l'API, un texte apparaît en rouge sous le bouton afin de montrer à l'utilisateur que cette adresse e-mail n'existe pas.
 
-La page de Scan de Qrcode affiche un bouton pour ouvrir l'appareil photo du téléphone.
+Ensuite, si l'adresse existe, l'utilisateur reçoit un e-mail contenant le QR code (géré par le backend à réception de la méthode POST). Nous le redirigeons ensuite vers la page de scan de QR code afin de le scanner.
 
+Qrcode.dart
+La page de scan de QR code affiche un bouton pour ouvrir l'appareil photo du téléphone. En scannant le QR code, nous comparons l'adresse e-mail tapée avec l'adresse e-mail envoyée par l'API. Si les deux correspondent, nous redirigeons l'utilisateur vers la page de liste des produits.
+
+product.dart
+Liste de tous les produits.
+
+fiche.dart
+Fiche produit lorsque l'on appuie sur un produit. Un bouton "voir produit" ouvre la caméra pour voir le produit en réalité augmentée.
+
+main.dart
+Gère toute la navigation entre les pages et le thème contenant les couleurs et autres...
