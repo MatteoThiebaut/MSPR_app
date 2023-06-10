@@ -16,6 +16,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   http: ^0.13.5
   arcore_flutter_plugin: ^0.1.0
+  mockito: ^5.4.0
   
 
 dev_dependencies:
