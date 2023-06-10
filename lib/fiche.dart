@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
 import 'main.dart';
+import 'productARPage.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   final Machine machine;
 
   const ProductPage({Key? key, required this.machine}) : super(key: key);
+
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  bool isArEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class ProductPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              machine.name,
+              widget.machine.name,
               style: const TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -26,7 +34,7 @@ class ProductPage extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Price: ${machine.details.price} €',
+              'Price: ${widget.machine.details.price} €',
               style: const TextStyle(
                 fontSize: 18.0,
                 color: Colors.black87,
@@ -34,7 +42,7 @@ class ProductPage extends StatelessWidget {
             ),
             const SizedBox(height: 40.0),
             Text(
-              'Description: ${machine.details.description}',
+              'Description: ${widget.machine.details.description}',
               style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.black54,
@@ -42,15 +50,33 @@ class ProductPage extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Color : ${machine.details.color}',
+              'Color : ${widget.machine.details.color}',
               style: const TextStyle(
                 fontSize: 16.0,
                 color: Colors.black54,
               ),
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  isArEnabled = !isArEnabled;
+                });
+              },
+              child: Text(isArEnabled ? "Désactiver AR" : "Activer AR"),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: isArEnabled ? ProductARPage() : Container(),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
